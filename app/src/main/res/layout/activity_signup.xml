@@ -3,18 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/main_color">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/main_color">
 
         <TextView
             android:id="@+id/signInTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In"
+            android:text="Sign Up"
             android:gravity="left"
             android:fontFamily="@font/imfellfrenchcanon_regular"
             android:textSize="@dimen/_48sdp"
@@ -35,6 +36,29 @@
             android:layout_marginRight="@dimen/_30sdp" />
 
         <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textColor="#2B4C59"
+            android:gravity="left"
+            android:fontFamily="@font/robotoslab_variablefont_wght"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_below="@+id/vew1"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:textSize="@dimen/_20ssp"/>
+
+        <EditText
+            android:id="@+id/name1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lorem Ipsum"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_below="@+id/name"
+            android:backgroundTint="#E5E5E5"/>
+
+        <TextView
             android:id="@+id/phoneoremail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,8 +67,8 @@
             android:gravity="left"
             android:fontFamily="@font/robotoslab_variablefont_wght"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_below="@+id/vew1"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_below="@+id/name1"
+            android:layout_marginTop="@dimen/_20sdp"
             android:textSize="@dimen/_20ssp"/>
 
         <EditText
@@ -78,17 +102,68 @@
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:hint="*******"
-
             android:paddingEnd="@dimen/_12sdp"
             android:paddingRight="@dimen/_12sdp"
             android:layout_below="@+id/password"
+            android:backgroundTint="#E5E5E5"/>
+
+        <TextView
+            android:id="@+id/password2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Confirm Password"
+            android:textColor="#2B4C59"
+            android:gravity="left"
+            android:fontFamily="@font/robotoslab_variablefont_wght"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_below="@+id/password1"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_20ssp"/>
+
+        <EditText
+            android:id="@+id/password3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:hint="*******"
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingRight="@dimen/_12sdp"
+            android:layout_below="@+id/password2"
+            android:backgroundTint="#E5E5E5"/>
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textColor="#2B4C59"
+            android:gravity="left"
+            android:fontFamily="@font/robotoslab_variablefont_wght"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_below="@+id/password3"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_20ssp"/>
+
+        <EditText
+            android:id="@+id/phone1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:hint="12365-54987"
+
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingRight="@dimen/_12sdp"
+            android:layout_below="@+id/phone"
             android:backgroundTint="#E5E5E5"/>
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_20sdp"
-            android:layout_below="@+id/password1"/>
+            android:layout_below="@+id/phone1"/>
 
         <TextView
             android:id="@+id/forgot"
@@ -101,7 +176,7 @@
             android:textSize="@dimen/_17ssp"/>
 
         <FrameLayout
-            android:id="@+id/loginbtn"
+            android:id="@+id/signupbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle2"
@@ -114,12 +189,12 @@
                 android:id="@+id/signup1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Sign Up"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
                 android:fontFamily="@font/inter_medium"
                 android:textStyle="bold"
-                android:textSize="@dimen/_30sdp"
+                android:textSize="@dimen/_25sdp"
                 android:shadowColor="#000000"
                 android:shadowDx="10"
                 android:shadowDy="10"
@@ -127,10 +202,11 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/loginbtn"
+            android:layout_below="@id/signupbtn"
             android:layout_marginTop="@dimen/_30sdp">
 
             <TextView
@@ -148,17 +224,22 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:id="@+id/singup"
+                android:id="@+id/txtsignin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="right"
-                android:text="Singup"
+                android:text="Sing In"
                 android:textColor="#FCC21B"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"/>
         </LinearLayout>
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/linear"/>
 
     </RelativeLayout>
 </ScrollView>
