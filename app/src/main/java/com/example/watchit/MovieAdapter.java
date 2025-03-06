@@ -1,27 +1,26 @@
 package com.example.watchit;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-import com.example.watchit.R;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private List<Integer> movieList;
+    private List<?> movieList; // Allow both Model_movie and Integer lists
     private ViewPager2 viewPager;
+    private boolean isIntegerList; // Flag to differentiate types
 
-    public MovieAdapter(List<Integer> originalList, ViewPager2 viewPager) {
+    public MovieAdapter(List<?> movieList, ViewPager2 viewPager) {
+        this.movieList = movieList;
         this.viewPager = viewPager;
-        this.movieList = new ArrayList<>();
-
-        // Infinite scrolling setup (Adding duplicate first and last items)
-        this.movieList.add(originalList.get(originalList.size() - 1)); // Fake last as first
-        this.movieList.addAll(originalList); // Actual images
-        this.movieList.add(originalList.get(0)); // Fake first as last
+        this.isIntegerList = !movieList.isEmpty() && movieList.get(0) instanceof Integer;
     }
 
     @NonNull
@@ -33,7 +32,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.imageView.setImageResource(movieList.get(position));
+        if (isIntegerList) {
+            // Handle Integer list (image resources)
+            holder.imageView.setImageResource((Integer) movieList.get(position));
+//            holder.movieName.setVisibility(View.GONE); // Hide movie name for banners
+        } else {
+            // Handle Model_movie list
+            Model_movie movie = (Model_movie) movieList.get(position);
+            holder.imageView.setImageResource(movie.getImageResId());
+//            holder.movieName.setText(movie.getMovieName());
+//            holder.movieName.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -43,10 +52,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+//        TextView movieName;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieImage);
+
         }
     }
 }

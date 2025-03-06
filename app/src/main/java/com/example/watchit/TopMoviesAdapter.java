@@ -1,13 +1,13 @@
 package com.example.watchit;
-import android.graphics.Movie;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-import com.example.watchit.R;
 
 public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.MovieViewHolder> {
     private List<Model_movie> movieList;
@@ -25,7 +25,9 @@ public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.imageView.setImageResource(movieList.get(position).getImageResId());
+        Model_movie movie = movieList.get(position);
+        holder.imageView.setImageResource(movie.getImageResId());
+        holder.movieName.setText(movie.getMovieName());  // Set movie name
     }
 
     @Override
@@ -35,10 +37,12 @@ public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.Movi
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        TextView movieName;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movieImage1);
+            movieName = itemView.findViewById(R.id.movieName);
         }
     }
 }

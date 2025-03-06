@@ -1,16 +1,19 @@
 package com.example.watchit;
 
 public class Model_movie {
+    private int imageResId;
+    private String movieName;
 
-        private int imageResId;
-
-        public Model_movie(int imageResId) {
-            this.imageResId = imageResId;
-        }
-
-        public int getImageResId() {
-            return imageResId;
-        }
+    public Model_movie(int imageResId, String movieName) {
+        this.imageResId = imageResId;
+        this.movieName = movieName;
     }
 
+    public int getImageResId() {
+        return imageResId;
+    }
 
+    public String getMovieName() {
+        return movieName;
+    }
+}
