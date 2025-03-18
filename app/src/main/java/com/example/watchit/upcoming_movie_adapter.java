@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.MovieViewHolder> {
+public class upcoming_movie_adapter extends RecyclerView.Adapter<upcoming_movie_adapter.MovieViewHolder> {
     private List<Model_Movie1> movieList;
 
-    public TopMoviesAdapter(List<Model_Movie1> movieList) {
+    public upcoming_movie_adapter(List<Model_Movie1> movieList) {
         this.movieList = movieList;
     }
 
@@ -25,17 +25,14 @@ public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        // Get the real position using modulo
-        int realPosition = position % movieList.size();
-        Model_Movie1 movie = movieList.get(realPosition);
-
+        Model_Movie1 movie = movieList.get(position);
         holder.imageView.setImageResource(movie.getImageResId());
-        holder.movieName.setText(movie.getMovieName());
+        holder.movieName.setText(movie.getMovieName());  // Set movie name
     }
 
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE; // Infinite loop
+        return movieList.size();
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {

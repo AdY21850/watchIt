@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class dashboard extends AppCompatActivity {
@@ -25,11 +24,23 @@ public class dashboard extends AppCompatActivity {
     ProgressBar progressBar1, progressBar2, progressBar3;
     RecyclerView recyclerViewTopMovies, recyclerViewUpcomingMovies;
     TopMoviesAdapter topMoviesAdapter;
-    MovieAdapter MovieAdapter;
-    private List<Model_movie> movieList;
-    private final Handler sliderHandler = new Handler();
-    private List<Integer> bannerMovieList;
-    private boolean isUserScrolling = false;
+    MovieAdapter movieAdapter;
+    upcoming_movie_adapter upcomingMovieAdapter;
+
+    private List<Model_movie> bannerMovies;
+    private List<Model_Movie1> movieList1;
+    private static final int MULTIPLIER = 2; // Duplicate dataset for infinite scrolling
+    private Handler sliderHandler = new Handler();
+
+    private Runnable sliderRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int currentItem = viewPager.getCurrentItem();
+            int nextItem = (currentItem + 1) % bannerMovies.size(); // Loop back to first item
+            viewPager.setCurrentItem(nextItem, true);
+            sliderHandler.postDelayed(this, 3000); // Change every 3 seconds
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,7 @@ public class dashboard extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
 
+        // Initialize navigation buttons
         navExplore = findViewById(R.id.nav_explore);
         navLike = findViewById(R.id.nav_like);
         navCart = findViewById(R.id.nav_cart);
@@ -52,84 +64,83 @@ public class dashboard extends AppCompatActivity {
         navCart.setOnClickListener(v -> updateNavSelection(textCart));
         navProfile.setOnClickListener(v -> updateNavSelection(textProfile));
 
+        // Initialize ViewPager2 and ProgressBars
         viewPager = findViewById(R.id.ViewPager2);
         progressBar1 = findViewById(R.id.progressBar);
         progressBar2 = findViewById(R.id.progressBarTopMovies);
         progressBar3 = findViewById(R.id.progressBarUpcomingMovies);
 
-        List<Integer> realMovieList = Arrays.asList(
-                R.drawable.wide,
-                R.drawable.wide1,
-                R.drawable.wide2,
-                R.drawable.wide3
-        );
+        // Initialize banner movies list
+        bannerMovies = new ArrayList<>();
+        bannerMovies.add(new Model_movie(R.drawable.wide, "Oppenheimer", "History | Thriller | Drama", "2023", "9.1"));
+        bannerMovies.add(new Model_movie(R.drawable.wide1, "Avengers: Endgame", "Action | Sci-Fi", "2019", "8.4"));
+        bannerMovies.add(new Model_movie(R.drawable.wide2, "Inception", "Sci-Fi | Thriller", "2010", "8.8"));
+        bannerMovies.add(new Model_movie(R.drawable.wide3, "The Dark Knight", "Action | Crime", "2008", "9.0"));
 
-        bannerMovieList = new ArrayList<>();
-        bannerMovieList.add(realMovieList.get(realMovieList.size() - 1));
-        bannerMovieList.addAll(realMovieList);
-        bannerMovieList.add(realMovieList.get(0));
+        // Set up ViewPager2 with the adapter
+        movieAdapter = new MovieAdapter(bannerMovies, viewPager, this);
+        viewPager.setAdapter(movieAdapter);
 
-        MovieAdapter adapter = new MovieAdapter(bannerMovieList, viewPager);
-        viewPager.setAdapter(adapter);
-        viewPager.setPageTransformer(new OverlapTransformer());
-        viewPager.setCurrentItem(1, false);
+        // Start auto-scroll
+        sliderHandler.postDelayed(sliderRunnable, 3000);
 
-        progressBar1.setVisibility(View.GONE);
-        startAutoSlide();
-
+        // Handle user interaction to prevent auto-scroll from interrupting manual swipes
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
-                    isUserScrolling = true;
-                } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                    isUserScrolling = false;
-                }
-            }
-
-            @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    viewPager.postDelayed(() -> viewPager.setCurrentItem(bannerMovieList.size(), false), 200);
-                } else if (position == bannerMovieList.size() + 1) {
-                    viewPager.postDelayed(() -> viewPager.setCurrentItem(1, false), 200);
-                }
+                super.onPageSelected(position);
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, 3000); // Reset timer after user interaction
             }
         });
 
+        progressBar1.setVisibility(View.GONE);
+
+        // Initialize RecyclerView for Top Movies
         recyclerViewTopMovies = findViewById(R.id.recyclerViewTopMovies);
         recyclerViewTopMovies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        movieList = new ArrayList<>();
-        movieList.add(new Model_movie(R.drawable.godzillaxkong, "Godzilla x Kong"));
-        movieList.add(new Model_movie(R.drawable.kungfupanda, "Kung Fu Panda"));
-        movieList.add(new Model_movie(R.drawable.damaged_img, "Damaged"));
-        movieList.add(new Model_movie(R.drawable.no_way_up, "No Way Up"));
-        movieList.add(new Model_movie(R.drawable.wide, "Wide Movie 1"));
-        movieList.add(new Model_movie(R.drawable.wide2, "Wide Movie 2"));
-        movieList.add(new Model_movie(R.drawable.wide3, "Wide Movie 3"));
-        movieList.add(new Model_movie(R.drawable.wide1, "Wide Movie 4"));
+        movieList1 = new ArrayList<>();
+        movieList1.add(new Model_Movie1(R.drawable.godzillaxkong, "Godzilla x Kong"));
+        movieList1.add(new Model_Movie1(R.drawable.kungfupanda, "Kung Fu Panda"));
+        movieList1.add(new Model_Movie1(R.drawable.damaged_img, "Damaged"));
+        movieList1.add(new Model_Movie1(R.drawable.no_way_up, "No Way Up"));
+        movieList1.add(new Model_Movie1(R.drawable.wide1, "Wide Movie 4"));
+        movieList1.add(new Model_Movie1(R.drawable.kungfupanda, "Kung Fu Panda"));
+        movieList1.add(new Model_Movie1(R.drawable.wide, "Wide Movie 1"));
+        movieList1.add(new Model_Movie1(R.drawable.godzillaxkong, "Godzilla x Kong"));
 
-        topMoviesAdapter = new TopMoviesAdapter(movieList);
+        // Duplicate dataset for infinite effect
+        List<Model_Movie1> infiniteList = new ArrayList<>(movieList1);
+        infiniteList.addAll(movieList1);
+
+        topMoviesAdapter = new TopMoviesAdapter(infiniteList);
         recyclerViewTopMovies.setAdapter(topMoviesAdapter);
+        recyclerViewTopMovies.scrollToPosition(movieList1.size()); // Start in the middle
         progressBar2.setVisibility(View.GONE);
 
+        // Initialize RecyclerView for Upcoming Movies
         recyclerViewUpcomingMovies = findViewById(R.id.recyclerViewUpcommingMovies);
         recyclerViewUpcomingMovies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        movieList = new ArrayList<>();
-        movieList.add(new Model_movie(R.drawable.wide1, "Wide Movie 4"));
-        movieList.add(new Model_movie(R.drawable.kungfupanda, "Kung Fu Panda"));
-        movieList.add(new Model_movie(R.drawable.wide, "Wide Movie 1"));
-        movieList.add(new Model_movie(R.drawable.wide2, "Wide Movie 2"));
-        movieList.add(new Model_movie(R.drawable.wide3, "Wide Movie 3"));
-        movieList.add(new Model_movie(R.drawable.no_way_up, "No Way Up"));
-        movieList.add(new Model_movie(R.drawable.damaged_img, "Damaged"));
-        movieList.add(new Model_movie(R.drawable.godzillaxkong, "Godzilla x Kong"));
+        List<Model_Movie1> upcomingMovies = new ArrayList<>();
+        upcomingMovies.add(new Model_Movie1(R.drawable.wide1, "Wide Movie 4"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.kungfupanda, "Kung Fu Panda"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.wide, "Wide Movie 1"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.godzillaxkong, "Godzilla x Kong"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.kungfupanda, "Kung Fu Panda"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.damaged_img, "Damaged"));
+        upcomingMovies.add(new Model_Movie1(R.drawable.no_way_up, "No Way Up"));
 
-        topMoviesAdapter = new TopMoviesAdapter(movieList);
-        recyclerViewUpcomingMovies.setAdapter(topMoviesAdapter);
+        upcomingMovieAdapter = new upcoming_movie_adapter(upcomingMovies);
+        recyclerViewUpcomingMovies.setAdapter(upcomingMovieAdapter);
         progressBar3.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sliderHandler.removeCallbacks(sliderRunnable);
     }
 
     private void updateNavSelection(TextView selectedTextView) {
@@ -139,22 +150,5 @@ public class dashboard extends AppCompatActivity {
         textProfile.setVisibility(View.GONE);
 
         selectedTextView.setVisibility(View.VISIBLE);
-    }
-
-    private void startAutoSlide() {
-        sliderHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isUserScrolling) {
-                    int nextPosition = viewPager.getCurrentItem() + 1;
-                    if (nextPosition == bannerMovieList.size() + 1) {
-                        viewPager.postDelayed(() -> viewPager.setCurrentItem(1, false), 200);
-                    } else {
-                        viewPager.setCurrentItem(nextPosition, true);
-                    }
-                }
-                sliderHandler.postDelayed(this, 3000);
-            }
-        }, 3000);
     }
 }
