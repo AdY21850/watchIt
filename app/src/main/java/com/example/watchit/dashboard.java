@@ -1,11 +1,14 @@
 package com.example.watchit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,16 +72,26 @@ public class dashboard extends AppCompatActivity {
         progressBar1 = findViewById(R.id.progressBar);
         progressBar2 = findViewById(R.id.progressBarTopMovies);
         progressBar3 = findViewById(R.id.progressBarUpcomingMovies);
-
+        String summary="Aditya ki app kamal ki hai";
         // Initialize banner movies list
         bannerMovies = new ArrayList<>();
-        bannerMovies.add(new Model_movie(R.drawable.wide, "Oppenheimer", "History | Thriller | Drama", "2023", "9.1"));
-        bannerMovies.add(new Model_movie(R.drawable.wide1, "Avengers: Endgame", "Action | Sci-Fi", "2019", "8.4"));
-        bannerMovies.add(new Model_movie(R.drawable.wide2, "Inception", "Sci-Fi | Thriller", "2010", "8.8"));
-        bannerMovies.add(new Model_movie(R.drawable.wide3, "The Dark Knight", "Action | Crime", "2008", "9.0"));
+        bannerMovies.add(new Model_movie(R.drawable.imacculate, "imaculate", "History | Thriller | Drama", "2023", "9.1",summary));
+        bannerMovies.add(new Model_movie(R.drawable.godzillaxkong, "godzillaxkong", "Action | Sci-Fi", "2019", "8.4",summary));
+        bannerMovies.add(new Model_movie(R.drawable.damaged_img, "Damaged", "Sci-Fi | Thriller", "2010", "8.8",summary));
+        bannerMovies.add(new Model_movie(R.drawable.threemuskaters_pic, "threemuskaters", "Action | Crime", "2008", "9.0",summary));
 
-        // Set up ViewPager2 with the adapter
-        movieAdapter = new MovieAdapter(bannerMovies, viewPager, this);
+        // Set up ViewPager2 with the adapter and item click listener
+        movieAdapter = new MovieAdapter(bannerMovies, viewPager, this, (position, movie) -> {
+            Intent intent = new Intent(this, Movies_Details_Activity.class);
+            intent.putExtra("movieTitle", movie.getTitle());
+            intent.putExtra("movieGenre", movie.getGenre());
+            intent.putExtra("movieYear", movie.getYear());
+            intent.putExtra("movieRating", movie.getRating());
+            intent.putExtra("movieImage", movie.getImageRes());
+            intent.putExtra("summary", movie.getsummary());
+
+            startActivity(intent);
+        });
         viewPager.setAdapter(movieAdapter);
 
         // Start auto-scroll

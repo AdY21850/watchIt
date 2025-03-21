@@ -16,11 +16,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Model_movie> movieList;
     private ViewPager2 viewPager;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
-    public MovieAdapter(List<Model_movie> movieList, ViewPager2 viewPager, Context context) {
+    public interface OnItemClickListener {
+        void onItemClick(int position, Model_movie movie);
+    }
+
+    public MovieAdapter(List<Model_movie> movieList, ViewPager2 viewPager, Context context, OnItemClickListener listener) {
         this.movieList = movieList;
         this.viewPager = viewPager;
         this.context = context;
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -48,6 +54,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.movieRating.setText(movie.getRating() != null ? movie.getRating() : "N/A");
 
         holder.itemView.setVisibility(View.VISIBLE);
+
+        // **Set Click Listener**
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(realPosition, movie);
+            }
+        });
     }
 
     @Override
@@ -66,6 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movieGenre = itemView.findViewById(R.id.movieGenre);
             movieYear = itemView.findViewById(R.id.movieYear);
             movieRating = itemView.findViewById(R.id.movieRating);
+
         }
     }
 }
