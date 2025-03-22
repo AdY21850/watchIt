@@ -40,7 +40,7 @@
               </FrameLayout>
               <com.google.android.material.card.MaterialCardView
                   android:layout_width="match_parent"
-                  android:layout_height="@dimen/_250sdp"
+                  android:layout_height="@dimen/_300sdp"
                   android:layout_weight="2"
                   android:layout_marginTop="-220dp"
                   android:layout_marginLeft="@dimen/_10sdp"
@@ -172,7 +172,7 @@
                           android:layout_height="wrap_content"
                           android:text="A young woman with a mysterious past is tasked with uniting different tribes to fight against an oppressive warlord who threatens their peaceful colony."
                           android:textSize="14sp"
-                          android:textAlignment="center"
+
                           android:textColor="@android:color/white"
                           android:layout_marginLeft="@dimen/_5sdp"
                           android:layout_marginRight="@dimen/_5sdp"
@@ -251,7 +251,7 @@
               android:layout_height="match_parent">
 
               <androidx.recyclerview.widget.RecyclerView
-                  android:id="@+id/recyclerViewTopMovies"
+                  android:id="@+id/recyclerViewrecomendations"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:clipToPadding="false"
@@ -263,14 +263,14 @@
                   app:layout_constraintTop_toTopOf="parent" />
 
               <ProgressBar
-                  android:id="@+id/progressBarTopMovies"
+                  android:id="@+id/progressBarrecomendations"
                   style="?android:attr/progressBarStyle"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   app:layout_constraintBottom_toBottomOf="parent"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toTopOf="@id/recyclerViewTopMovies" />
+                  app:layout_constraintTop_toTopOf="@id/recyclerViewrecomendations" />
 
 
 

@@ -7,7 +7,7 @@ public class Model_movie {
     private String rating;
     private String summary;
 
-    public Model_movie(int imageRes, String title, String genre, String year, String rating,String Summary) {
+    public Model_movie(int imageRes, String title, String genre, String year, String rating,String summary) {
         this.imageRes = imageRes;
         this.title = title;
         this.genre = genre;
@@ -15,6 +15,7 @@ public class Model_movie {
         this.rating = rating;
         this.summary=summary;
     }
+
 
     public  int getImageRes() { return imageRes; }
     public String getTitle() { return title; }
