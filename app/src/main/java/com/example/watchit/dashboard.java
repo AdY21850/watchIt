@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -321,6 +323,10 @@ public class dashboard extends AppCompatActivity {
         recyclerViewRecommendations.setAdapter(recommendationAdapter);
         recyclerViewRecommendations.scrollToPosition(recommendationList.size());
         progressBar4.setVisibility(View.GONE);
+        //onclick on bottom bottons
+
+
+
     }
 
     @Override
