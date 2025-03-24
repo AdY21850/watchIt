@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -40,14 +45,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         if (movieList == null || movieList.isEmpty()) return;
 
-        // **Use modulo to create infinite loop**
+        // **Use modulo to create an infinite loop**
         int realPosition = position % movieList.size();
 
         Log.d("MovieAdapter", "Binding item at position: " + position + " (Real position: " + realPosition + ")");
 
         Model_movie movie = movieList.get(realPosition);
 
-        holder.movieImage.setImageResource(movie.getImageRes());
+        // **Load Image Using Glide**
+        Glide.with(context)
+                .load(movie.getImageUrl())  // Load image from URL
+                .placeholder(R.drawable.search) // Placeholder while loading
+                .error(R.drawable.exclamation_mark) // Error image if loading fails
+                .into(holder.movieImage);
+
+        // **Alternative: Load Image Using Picasso**
+        // Picasso.get().load(movie.getImageUrl()).placeholder(R.drawable.placeholder).error(R.drawable.error_image).into(holder.movieImage);
+
         holder.movieTitle.setText(movie.getTitle() != null ? movie.getTitle() : "Unknown Title");
         holder.movieGenre.setText(movie.getGenre() != null ? movie.getGenre() : "Unknown Genre");
         holder.movieYear.setText(movie.getYear() != null ? movie.getYear() : "N/A");
@@ -79,7 +93,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movieGenre = itemView.findViewById(R.id.movieGenre);
             movieYear = itemView.findViewById(R.id.movieYear);
             movieRating = itemView.findViewById(R.id.movieRating);
-
         }
     }
 }

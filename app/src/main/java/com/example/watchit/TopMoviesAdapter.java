@@ -1,19 +1,36 @@
 package com.example.watchit;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.MovieViewHolder> {
-    private List<Model_Movie1> movieList;
+    private List<Model_movie1> movieList;
+    private Context context;
+    private OnItemClickListener onItemClickListener;
 
-    public TopMoviesAdapter(List<Model_Movie1> movieList) {
+    // Interface for handling click events
+    public interface OnItemClickListener {
+        void onItemClick(int position, Model_movie1 movie);
+    }
+
+    // Constructor
+    public TopMoviesAdapter(Context context, List<Model_movie1> movieList, OnItemClickListener listener) {
+        this.context = context;
         this.movieList = movieList;
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -25,17 +42,32 @@ public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        // Get the real position using modulo
-        int realPosition = position % movieList.size();
-        Model_Movie1 movie = movieList.get(realPosition);
+        if (movieList == null || movieList.isEmpty()) return;
 
-        holder.imageView.setImageResource(movie.getImageResId());
-        holder.movieName.setText(movie.getMovieName());
+        // Use modulo to simulate infinite scrolling
+        int realPosition = position % movieList.size();
+        Model_movie1 movie = movieList.get(realPosition);
+        Log.d("topmovie ki url :-", "Loading URL: " + movie.getImageUrl());
+        // Load Image Using Glide
+        Glide.with(context)
+                .load(movie.getImageUrl())
+                .into(holder.imageView);
+        // **Alternative: Use Picasso (Uncomment to use)**
+        // Picasso.get().load(movie.getImageUrl()).placeholder(R.drawable.placeholder).error(R.drawable.error_image).into(holder.imageView);
+
+        holder.movieName.setText(movie.getTitle());
+
+        // Handle Click Events
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(realPosition, movie);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE; // Infinite loop
+        return Integer.MAX_VALUE; // Simulating infinite scroll
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {

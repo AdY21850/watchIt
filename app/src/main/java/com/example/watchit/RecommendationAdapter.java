@@ -1,6 +1,7 @@
 package com.example.watchit;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,16 @@ import java.util.List;
 public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAdapter.RecommendationViewHolder> {
     private Context context;
     private List<RecommendationModel> recommendationList;
+    private OnItemClickListener onItemClickListener;
 
-    public RecommendationAdapter(Context context, List<RecommendationModel> recommendationList) {
+    public interface OnItemClickListener {
+        void onItemClick(int position, RecommendationModel movie);
+    }
+
+    public RecommendationAdapter(Context context, List<RecommendationModel> recommendationList, OnItemClickListener listener) {
         this.context = context;
         this.recommendationList = recommendationList;
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -29,18 +36,30 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
     @Override
     public void onBindViewHolder(@NonNull RecommendationViewHolder holder, int position) {
+        if (recommendationList == null || recommendationList.isEmpty()) return;
+
+        Log.d("RecommendationAdapter", "Binding item at position: " + position);
+
         RecommendationModel recommendation = recommendationList.get(position);
-        holder.title.setText(recommendation.getTitle());
-        holder.rating.setText("⭐ " + recommendation.getRating());
+
+        holder.title.setText(recommendation.getTitle() != null ? recommendation.getTitle() : "Unknown Title");
+        holder.rating.setText("⭐ " + (recommendation.getRating() != null ? recommendation.getRating() : "N/A"));
 
         Glide.with(context)
                 .load(recommendation.getPosterUrl())
                 .into(holder.poster);
+
+        // Set Click Listener
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position, recommendation);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return recommendationList.size();
+        return (recommendationList == null) ? 0 : recommendationList.size();
     }
 
     public static class RecommendationViewHolder extends RecyclerView.ViewHolder {
