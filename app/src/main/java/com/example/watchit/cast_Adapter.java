@@ -39,7 +39,7 @@ import java.util.List;
             holder.castName.setText(cast.getName());
 
             // Load image using Glide (make sure you add Glide dependency)
-            Log.d("image url ye hai:-",cast.getImageUrl());
+
             Picasso.get()
                     .load(cast.getImageUrl())
                     .placeholder(R.drawable.exclamation_mark)  // While loading

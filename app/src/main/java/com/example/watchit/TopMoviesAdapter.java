@@ -47,7 +47,7 @@ public class TopMoviesAdapter extends RecyclerView.Adapter<TopMoviesAdapter.Movi
         // Use modulo to simulate infinite scrolling
         int realPosition = position % movieList.size();
         Model_movie1 movie = movieList.get(realPosition);
-        Log.d("topmovie ki url :-", "Loading URL: " + movie.getImageUrl());
+
         // Load Image Using Glide
         Glide.with(context)
                 .load(movie.getImageUrl())

@@ -38,12 +38,12 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     public void onBindViewHolder(@NonNull RecommendationViewHolder holder, int position) {
         if (recommendationList == null || recommendationList.isEmpty()) return;
 
-        Log.d("RecommendationAdapter", "Binding item at position: " + position);
+
 
         RecommendationModel recommendation = recommendationList.get(position);
 
         holder.title.setText(recommendation.getTitle() != null ? recommendation.getTitle() : "Unknown Title");
-        holder.rating.setText("⭐ " + (recommendation.getRating() != null ? recommendation.getRating() : "N/A"));
+        holder.rating.setText(  (recommendation.getRating() != null ? recommendation.getRating() : "N/A"));
 
         Glide.with(context)
                 .load(recommendation.getPosterUrl())

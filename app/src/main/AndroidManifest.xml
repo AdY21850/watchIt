@@ -15,11 +15,14 @@
         android:theme="@style/Theme.WatchIt"
         tools:targetApi="31">
         <activity
+            android:name=".media_player"
+            android:exported="false" />
+        <activity
             android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".Movies_Details_Activity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".signup"
             android:exported="false" />

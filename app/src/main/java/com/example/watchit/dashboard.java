@@ -3,6 +3,7 @@ package com.example.watchit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -75,6 +76,7 @@ public class dashboard extends AppCompatActivity {
         bannerMovies = new ArrayList<>();
         bannerMovies.add(new Model_movie(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661917/imacculate_qkhol5.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Immaculate",
                 "History | Thriller | Drama",
                 "2023",
@@ -84,6 +86,7 @@ public class dashboard extends AppCompatActivity {
 
         bannerMovies.add(new Model_movie(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661915/godzillaxkong_ba94tb.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Godzilla x Kong",
                 "Action | Sci-Fi",
                 "2019",
@@ -93,6 +96,7 @@ public class dashboard extends AppCompatActivity {
 
         bannerMovies.add(new Model_movie(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661912/damaged_img_lgioen.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Damaged",
                 "Sci-Fi | Thriller",
                 "2010",
@@ -102,7 +106,8 @@ public class dashboard extends AppCompatActivity {
 
         bannerMovies.add(new Model_movie(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661918/intro_logo_irbjv2.jpg?_s=public-apps",
-                "Three Musketeers",
+
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4","Three Musketeers",
                 "Action | Crime",
                 "2008",
                 "9.0",
@@ -110,7 +115,8 @@ public class dashboard extends AppCompatActivity {
         ));
         bannerMovies.add(new Model_movie(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661928/wide2_dkpsid.jpg?_s=public-apps",
-                "Deadpool",
+
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4","Deadpool",
                 "Action | comedy | thriller",
                 "2008",
                 "9.0",
@@ -125,6 +131,7 @@ public class dashboard extends AppCompatActivity {
             intent.putExtra("movieYear", movie.getYear());
             intent.putExtra("movieRating", movie.getRating());
             intent.putExtra("movieImage", movie.getImageUrl());
+            intent.putExtra("movielink", movie.getmovieurl());
             intent.putExtra("summary", movie.getSummary());
             startActivity(intent);
         });
@@ -148,6 +155,7 @@ public class dashboard extends AppCompatActivity {
         movieList1 = new ArrayList<>();
         movieList1.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661915/godzillaxkong_ba94tb.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Godzilla x Kong",
                 "Action, Sci-Fi",
                 "2024",
@@ -157,6 +165,7 @@ public class dashboard extends AppCompatActivity {
 
         movieList1.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661918/kungfupanda_hfnkab.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Kung Fu Panda",
                 "Animation, Action, Comedy",
                 "2008",
@@ -166,6 +175,7 @@ public class dashboard extends AppCompatActivity {
 
         movieList1.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661912/damaged_img_lgioen.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Damaged",
                 "Thriller, Crime",
                 "2023",
@@ -175,6 +185,7 @@ public class dashboard extends AppCompatActivity {
 
         movieList1.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661919/no_way_up_znivtr.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "No Way Up",
                 "Adventure, Survival",
                 "2024",
@@ -190,6 +201,8 @@ public class dashboard extends AppCompatActivity {
             intent.putExtra("movieYear", movie.getYear());
             intent.putExtra("movieRating", movie.getRating());
             intent.putExtra("movieImage", movie.getImageUrl());
+            Log.d("mila gaya url--->",movie.getmovieurl());
+            intent.putExtra("movielink", movie.getmovieurl());
             intent.putExtra("summary", movie.getSummary());
             startActivity(intent);
         });
@@ -204,6 +217,7 @@ public class dashboard extends AppCompatActivity {
         List<Model_movie1> upcomingMovies = new ArrayList<>();
         upcomingMovies.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661927/wide1_ycc9la.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Avengers",
                 "Action, Sci-Fi",
                 "2024",
@@ -213,6 +227,7 @@ public class dashboard extends AppCompatActivity {
 
         upcomingMovies.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661927/wide_ukg6ot.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "1917",
                 "Autobiography",
                 "2008",
@@ -222,6 +237,7 @@ public class dashboard extends AppCompatActivity {
 
         upcomingMovies.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661928/wide3_jcqd72.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Openhiemer",
                 "Autobiography",
                 "2023",
@@ -231,6 +247,7 @@ public class dashboard extends AppCompatActivity {
 
         upcomingMovies.add(new Model_movie1(
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742661920/rebel_moon_movie_poster_b5xklt.jpg?_s=public-apps",
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
                 "Rebel Moon",
                 "Adventure, Survival",
                 "2024",
@@ -240,12 +257,16 @@ public class dashboard extends AppCompatActivity {
 
         upcomingMovieAdapter = new upcoming_movie_adapter(this, upcomingMovies, (position, movie) -> {
             // Handle click event
+
             Intent intent = new Intent(this, Movies_Details_Activity.class);
             intent.putExtra("movieTitle", movie.getTitle());
             intent.putExtra("movieGenre", movie.getGenre());
             intent.putExtra("movieYear", movie.getYear());
             intent.putExtra("movieRating", movie.getRating());
             intent.putExtra("movieImage", movie.getImageUrl());
+            Log.d("mila gaya url..............",movie.getmovieurl());
+            intent.putExtra("movielink", movie.getmovieurl());
+
             intent.putExtra("summary", movie.getSummary());
             startActivity(intent);
         });
@@ -261,49 +282,57 @@ public class dashboard extends AppCompatActivity {
         recommendationList.add(new RecommendationModel(
                 "Emakku Thozhil Romance",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670398/images_qiquuz.jpg?_s=public-apps",
-                "Romance", "2024", "8.4", "A heartwarming love story that transcends challenges."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Romance", "2024 |", "⭐8.4", "A heartwarming love story that transcends challenges."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "The Witch Revenge",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670416/images_dnn8vx.jpg?_s=public-apps",
-                "Horror", "2023", "8.7", "A gripping tale of dark magic and vengeance."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Horror", "2023 |", "⭐8.7", "A gripping tale of dark magic and vengeance."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Ouija Castle",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670383/images_gogtnz.jpg?_s=public-apps",
-                "Horror", "2022", "7.9", "An eerie castle hides terrifying secrets."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Horror", "2022 |", "⭐7.9", "An eerie castle hides terrifying secrets."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Nosferatu",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670347/images_tb7amm.jpg?_s=public-apps",
-                "Horror", "1922", "8.2", "A silent film classic that redefined vampires."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Horror", "1922 |", "⭐8.2", "A silent film classic that redefined vampires."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Pushpa 2",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670318/hekl4hx4hjxpz54zdpig.jpg?_s=public-apps",
-                "Action", "2024", "6.3", "The thrilling sequel to the blockbuster action film."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Action", "2024 |", "⭐6.3", "The thrilling sequel to the blockbuster action film."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Dhoom Dhaam",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670303/tzab5335mxoygalse4ck.jpg?_s=public-apps",
-                "Comedy", "2023", "4.5", "A lighthearted entertainer filled with laughter."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Comedy", "2023 |", "⭐4.5", "A lighthearted entertainer filled with laughter."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Baby John",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742670231/tbeiiyfnqdslip1p8sab.jpg?_s=public-apps",
-                "Drama", "2024", "9.2", "An emotional journey of self-discovery."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Drama", "2024 |", "⭐9.2", "An emotional journey of self-discovery."
         ));
 
         recommendationList.add(new RecommendationModel(
                 "Marked Men: Rule + Shaw",
                 "https://res.cloudinary.com/dorc5p2jg/image/upload/fl_preserve_transparency/v1742674634/evzvh4d5svntdyjdglak.jpg?_s=public-apps",
-                "Thriller", "2024", "9.2", "A high-stakes thriller with intense action."
+                "https://res.cloudinary.com/dorc5p2jg/video/upload/v1742910601/Snapchat-1490782232_cv4baz.mp4",
+                "Thriller", "|2024 |", "⭐9.2", "A high-stakes thriller with intense action."
         ));
 
         List<RecommendationModel> infiniteList = new ArrayList<>(recommendationList);
@@ -317,6 +346,7 @@ public class dashboard extends AppCompatActivity {
             intent.putExtra("movieYear", movie.getYear());
             intent.putExtra("movieRating", movie.getRating());
             intent.putExtra("movieImage", movie.getPosterUrl());
+            intent.putExtra("movielink", movie.getmovieurl());
             intent.putExtra("summary", movie.getSummary());
             startActivity(intent);
         });

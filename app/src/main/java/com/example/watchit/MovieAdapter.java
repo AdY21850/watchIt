@@ -48,7 +48,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         // **Use modulo to create an infinite loop**
         int realPosition = position % movieList.size();
 
-        Log.d("MovieAdapter", "Binding item at position: " + position + " (Real position: " + realPosition + ")");
 
         Model_movie movie = movieList.get(realPosition);
 
