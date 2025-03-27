@@ -137,7 +137,7 @@
                               android:id="@+id/tvMovieDuration"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:text="• 2h 22m"
+                              android:text=" 2h 22m |"
                               android:textSize="14sp"
                               android:textColor="@android:color/white"
                               android:layout_marginStart="5dp" />
