@@ -62,10 +62,18 @@ public class dashboard extends AppCompatActivity {
         textCart = findViewById(R.id.text_cart);
         textProfile = findViewById(R.id.text_profile);
 
-        navExplore.setOnClickListener(v -> updateNavSelection(textExplore));
-        navLike.setOnClickListener(v -> updateNavSelection(textLike));
-        navCart.setOnClickListener(v -> updateNavSelection(textCart));
-        navProfile.setOnClickListener(v -> updateNavSelection(textProfile));
+        navExplore.setOnClickListener(v -> {updateNavSelection(textExplore);
+            Intent intent = new Intent(dashboard.this, explore.class); // Open ProfileActivity
+            startActivity(intent);});
+        navLike.setOnClickListener(v -> {updateNavSelection(textLike);
+            Intent intent = new Intent(dashboard.this, wishlist.class); // Open ProfileActivity
+            startActivity(intent);});
+        navCart.setOnClickListener(v -> {updateNavSelection(textCart);
+            Intent intent = new Intent(dashboard.this, downloads.class); // Open ProfileActivity
+            startActivity(intent);});
+        navProfile.setOnClickListener(v -> {updateNavSelection(textProfile);
+                Intent intent = new Intent(dashboard.this, profile.class); // Open ProfileActivity
+        startActivity(intent);});
 
         viewPager = findViewById(R.id.ViewPager2);
         progressBar1 = findViewById(R.id.progressBar);

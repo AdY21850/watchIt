@@ -71,21 +71,10 @@
                     app:layout_constraintVertical_bias="0.542" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
-                android:id="@+id/editTextText"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_margin="@dimen/_16sdp"
-                android:background="@drawable/dark_blue_bg"
-                android:drawablePadding="@dimen/_8sdp"
-                android:ems="10"
-                android:hint="search movies"
-                android:inputType="text"
-                android:padding="@dimen/_12sdp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp">
 
